@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared policy for ShaddyDC's projects (README.md). ShaddyDC/cluster does not use it: its merges and deploys stay manual.",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    "group:allNonMajor"
+  ],
+  "timezone": "UTC",
+  "schedule": ["* 0-5 * * 1"],
+  "minimumReleaseAge": "3 days",
+  "nix": { "enabled": true },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["* 0-5 * * 1"]
+  },
+  "packageRules": [
+    {
+      "description": "Non-major updates merge themselves once the PR's CI passes. Renovate never automerges without passing checks, so a repo without PR CI only gets PRs.",
+      "matchUpdateTypes": ["minor", "patch", "pin", "pinDigest", "digest"],
+      "automerge": true
+    },
+    {
+      "description": "GitHub Actions majors too: the PR's own CI runs the new action.",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "automerge": true
+    },
+    {
+      "description": "ghcr.io and other OCI registries publish no release timestamps; without this every update from them waits forever.",
+      "matchDatasources": ["docker"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    }
+  ]
+}
