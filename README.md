@@ -17,7 +17,7 @@ What it does:
 - **Weekly**: Monday 00:00-06:00 UTC, all non-major updates in one PR, so private repos spend
   few Actions minutes on it. Security updates do not wait for the schedule.
 - **Lock files in lockstep**: every repo refreshes its lock files (flake.lock included) in the
-  same window, so the Nix-built CI runner images of riader and rerep land on the same nixpkgs
-  revision and share their layers on the cluster's nodes.
+  same window, so projects land on the same nixpkgs revision and their Nix-built images share
+  layers.
 
-ShaddyDC/cluster does not extend this: its merges and deploys stay manual.
+Repositories whose updates must stay manual keep their own config instead of extending this.
