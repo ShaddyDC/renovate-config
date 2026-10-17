@@ -59,6 +59,15 @@
         "lockFileMaintenance"
       ],
       "automerge": false
+    },
+    {
+      "description": "Our own images, actions and packages skip the cooldown: we publish them, and what goes into them already passed it in their own repos.",
+      "matchPackageNames": [
+        "ghcr.io/shaddydc/**",
+        "ShaddyDC/**",
+        "github.com/ShaddyDC/**"
+      ],
+      "minimumReleaseAge": null
     }
   ]
 }
