@@ -16,7 +16,8 @@ What it does:
 - **Other majors wait for a review.**
 - **7-day cooldown** (`minimumReleaseAge`) against compromised releases, which are usually
   caught and yanked within days. Renovate opens no PR for a version younger than that.
-  Security updates skip it, and so do our own packages (`ghcr.io/shaddydc/**`, `ShaddyDC/**`):
+  Security updates skip it (from GitHub's advisories and, via `osvVulnerabilityAlerts`, the wider
+  OSV database), and so do our own packages (`ghcr.io/shaddydc/**`, `ShaddyDC/**`):
   their inputs already passed it in their own repos. Where it does not reach:
   - Docker images outside Docker Hub (ghcr.io, quay.io, registry.k8s.io): Renovate gets no
     push times from them, so they update without waiting.
