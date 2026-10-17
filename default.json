@@ -10,7 +10,7 @@
   "schedule": [
     "* 0-5 * * 1"
   ],
-  "minimumReleaseAge": "3 days",
+  "minimumReleaseAge": "7 days",
   "nix": {
     "enabled": true
   },
@@ -44,11 +44,21 @@
       "automerge": true
     },
     {
-      "description": "ghcr.io and other OCI registries publish no release timestamps; without this every update from them waits forever.",
+      "description": "ghcr.io and other OCI registries publish no release timestamps; without this every update from them waits forever. The price: the cooldown only applies to Docker Hub images (the one registry Renovate reads push times from).",
       "matchDatasources": [
         "docker"
       ],
       "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Renovate cannot hold back crates inside cargo update, so Cargo lock maintenance would pull versions minutes old. It opens PRs without merging them until Cargo's own min-publish-age (stable in Rust 1.100, 2026-11-12) is set in each repo's .cargo/config.toml. npm gets --before from Renovate; pnpm and uv repos set the cooldown in their own config.",
+      "matchManagers": [
+        "cargo"
+      ],
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "automerge": false
     }
   ]
 }
